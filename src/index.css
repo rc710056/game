@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Barlow Condensed', system-ui, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #07080C;
+    color: #E8ECF4;
+    font-family: var(--font-sans);
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes padPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes screenQuake {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  15% { transform: translate3d(-4px, 3px, 0); }
+  30% { transform: translate3d(4px, -3px, 0); }
+  45% { transform: translate3d(-3px, -2px, 0); }
+  60% { transform: translate3d(3px, 3px, 0); }
+  75% { transform: translate3d(-2px, 1px, 0); }
+}
+
+@keyframes comboShake {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  15% {
+    transform: translate3d(calc(var(--combo-shake-amp, 3px) * -1), calc(var(--combo-shake-amp, 3px) * 0.7), 0) rotate(-0.35deg);
+  }
+  30% {
+    transform: translate3d(var(--combo-shake-amp, 3px), calc(var(--combo-shake-amp, 3px) * -0.65), 0) rotate(0.35deg);
+  }
+  45% {
+    transform: translate3d(calc(var(--combo-shake-amp, 3px) * -0.75), calc(var(--combo-shake-amp, 3px) * -0.5), 0) rotate(-0.2deg);
+  }
+  65% {
+    transform: translate3d(calc(var(--combo-shake-amp, 3px) * 0.6), calc(var(--combo-shake-amp, 3px) * 0.45), 0) rotate(0.2deg);
+  }
+  82% {
+    transform: translate3d(calc(var(--combo-shake-amp, 3px) * -0.3), calc(var(--combo-shake-amp, 3px) * 0.2), 0) rotate(0deg);
+  }
+}
+
+.animate-pad-pulse {
+  animation: padPulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-screen-quake {
+  animation: screenQuake 0.16s linear infinite;
+}
+
+.animate-combo-shake {
+  animation: comboShake 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.hud-deadzone-flicker {
+  opacity: 0.42;
+  transform: translate3d(1px, -0.5px, 0);
+  filter: contrast(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pad-pulse,
+  .animate-screen-quake,
+  .animate-combo-shake {
+    animation: none;
+  }
+
+  .hud-deadzone-flicker {
+    opacity: 0.72;
+    transform: none;
+    filter: none;
+  }
+}
